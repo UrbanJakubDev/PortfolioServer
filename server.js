@@ -5,6 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
+const cloudinary = require('cloudinary').v2;
 
 const app = express()
 
@@ -18,6 +19,13 @@ app.use(cors(corsOptions))
 // use bodyParser middleware on express app
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
+
 
 // Database config
 const db = require('./app/models')
@@ -42,6 +50,7 @@ app.get('/', (req, res) => {
 require('./app/routes/turorial.routes')(app)
 require('./app/routes/auth.routes')(app)
 require('./app/routes/post.routes')(app)
+require('./app/routes/attachment.routes')(app)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 5000
