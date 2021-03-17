@@ -5,7 +5,7 @@ module.exports = mongoose => {
         content: String,
         published: Boolean,
         slug: String,
-        tags: [{ value: String }]
+        tags: String 
       },
       { timestamps: true }
     );

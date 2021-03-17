@@ -53,6 +53,26 @@ exports.signIn = (req, res) => {
   })
 }
 
+
+exports.me = (req, res) => {
+  const id = req.data
+  console.log(req);
+
+
+  // Post.findById(id)
+  //   .then(data => {
+  //     if (!data)
+  //       res.status(404).send({ message: "Not found Tutorial with id " + id });
+  //     else res.send(data);
+  //   })
+  //   .catch(err => {
+  //     res
+  //       .status(500)
+  //       .send({ message: "Error retrieving Tutorial with id=" + id });
+  //   });
+};
+
+
 // Function to generate acces token
 const generateAccessToken = (user) => {
   return jwt.sign({ user }, 'Tokenseecret', { expiresIn: '15m' })
