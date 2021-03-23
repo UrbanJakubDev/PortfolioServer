@@ -17,7 +17,7 @@ exports.register = (req, res) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
-    hash_password: bcrypt.hashSync(req.body.password, 10),
+    hash_password: bcrypt.hashSync(req.body.password, 10)
   })
 
   // Save user in the database
@@ -28,7 +28,7 @@ exports.register = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || 'Some error occurred while creating the user.',
+        message: err.message || 'Some error occurred while creating the user.'
       })
     })
 }
@@ -47,7 +47,10 @@ exports.signIn = (req, res) => {
         res.status(401).json({ message: 'Authentication failed. Wrong password.' })
       } else {
         const accessToken = generateAccessToken(user.email)
-        res.json({ accessToken: accessToken })
+        res.json({
+          accessToken: accessToken,
+          userData: user
+        })
       }
     }
   })
@@ -55,8 +58,8 @@ exports.signIn = (req, res) => {
 
 
 exports.me = (req, res) => {
-  const id = req.data
-  console.log(req);
+  console.log(req)
+  console.log(res)
 
 
   // Post.findById(id)
@@ -70,7 +73,7 @@ exports.me = (req, res) => {
   //       .status(500)
   //       .send({ message: "Error retrieving Tutorial with id=" + id });
   //   });
-};
+}
 
 
 // Function to generate acces token
