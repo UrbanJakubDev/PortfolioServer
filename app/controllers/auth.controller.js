@@ -58,21 +58,18 @@ exports.signIn = (req, res) => {
 
 
 exports.me = (req, res) => {
-  console.log(req)
-  console.log(res)
-
-
-  // Post.findById(id)
-  //   .then(data => {
-  //     if (!data)
-  //       res.status(404).send({ message: "Not found Tutorial with id " + id });
-  //     else res.send(data);
-  //   })
-  //   .catch(err => {
-  //     res
-  //       .status(500)
-  //       .send({ message: "Error retrieving Tutorial with id=" + id });
-  //   });
+  console.log(req.user)
+  const email = req.user.user
+  User.findOne(email,(err, user) => {
+    if (err) throw err
+    if (!user) {
+      res.status(401).json({ message: 'Authentication failed. User not found.' })
+    } else if (user) {
+      res.json({
+        userData: user
+      })
+    }
+  })
 }
 
 

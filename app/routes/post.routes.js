@@ -16,8 +16,8 @@ module.exports = (app) => {
   // Retrieve a single Tutorial with id
   router.get('/:id', blogposts.findOne)
 
-  // // Update a Tutorial with id
-  // router.put("/:id", tutorials.update);
+  // Update a Tutorial with id
+  router.put('/:id', blogposts.update)
 
   // Delete a Tutorial with id
   router.delete('/:id', auth.authenticateToken, blogposts.delete)

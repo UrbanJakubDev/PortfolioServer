@@ -1,19 +1,28 @@
 module.exports = (app) => {
-  const users = require('../controllers/auth.controller.js')
-  const auth = require('../controllers/auth.controller')
 
+  /** Express router providing user related routes
+   */
+  const users = require('../controllers/auth.controller.js')
+
+  /**
+   * express module
+   */
   var router = require('express').Router()
 
-  // Register a new User
+  /**
+   * Route registering user.
+   */
   router.post('/auth/register', users.register)
 
-  //Login user
+  /**
+   * Route Login User.
+   */
   router.post('/auth/login', users.signIn)
 
-  router.get('/auth/user', users.me)
-
-  // Retrieve all Tutorials
-  //router.get("/", users.findAll);
+  /**
+   * Route serve User Information after Login.
+   */
+  router.get('/auth/user', users.authenticateToken, users.me)
 
   app.use('/api', router)
 }

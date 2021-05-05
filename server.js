@@ -4,7 +4,6 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const jwt = require('jsonwebtoken')
 const cloudinary = require('cloudinary').v2;
 
 const app = express()

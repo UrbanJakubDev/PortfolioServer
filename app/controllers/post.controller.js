@@ -15,7 +15,8 @@ exports.create = (req, res) => {
     content: req.body.content,
     published: req.body.published ? req.body.published : false,
     slug: req.body.slug,
-    tags: req.body.tags
+    tags: req.body.tags,
+    previewImage: req.body.previewImage
   });
 
   // Save Post in the database
@@ -64,6 +65,31 @@ exports.findOne = (req, res) => {
       res
         .status(500)
         .send({ message: "Error retrieving Tutorial with id=" + id });
+    });
+};
+
+// Update a Post by the id in the request
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!"
+    });
+  }
+
+  const id = req.params.id;
+
+  Post.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Post with id=${id}. Maybe Post was not found!`
+        });
+      } else res.send({ message: "Post was updated successfully." });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Post with id=" + id
+      });
     });
 };
 
